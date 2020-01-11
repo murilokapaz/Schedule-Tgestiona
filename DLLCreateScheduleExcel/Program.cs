@@ -23,7 +23,7 @@ namespace DLLCreateScheduleExcel
             Console.WriteLine("Creating excel file...");
 
 
-            var interval = new IntervalDates(DateTime.Parse("31/01/2020"), DateTime.Parse("01/04/2020"));
+            var interval = new IntervalDates(DateTime.Parse("31/01/2020"), DateTime.Parse("01/02/2021"));
             var intervalDates = new TimelineRange();
             List<string> daysList = intervalDates.TimelineDaysList(interval);
 
@@ -92,8 +92,9 @@ namespace DLLCreateScheduleExcel
                     });
                     int colSpan = currentMonth.Count();
                     ws.Cell(3, posMonth).Value = month[indexMonth];
-                    int positionColSpan = posMonth+ colSpan;
-                    ws.Range(3, posMonth, 3, positionColSpan).Merge();
+                    int positionColSpan = posMonth+ colSpan-1;
+                    if(colSpan != 1) ws.Range(3, posMonth, 3, positionColSpan).Merge().Style.Fill.BackgroundColor= XLColor.AliceBlue;
+                    else ws.Cell(3, posMonth).Style.Fill.BackgroundColor = XLColor.AliceBlue;
                     posMonth += colSpan;
                     indexMonthPrevious = indexMonth;
                 }

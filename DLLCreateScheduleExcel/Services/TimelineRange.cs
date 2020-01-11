@@ -41,12 +41,13 @@ namespace DLLCreateScheduleExcel.Services
             List<string> listOfMonths = new List<string>();
 
             var day = startDate;
-            listOfMonths.Add(month[day.Month]);
+            listOfMonths.Add(month[day.Month] + day.Year);
             this.ColSpan = 0;
             for (int i = 0; i < numberDays; i++)
             {
+                
                 day = day.AddDays(1);
-                listOfMonths.Add(month[day.Month]);
+                listOfMonths.Add(month[day.Month]+ day.Year);
 
             }
 

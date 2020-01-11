@@ -87,7 +87,9 @@ namespace DLLCreateScheduleExcel
 
                 if(indexMonth != indexMonthPrevious)
                 {
-                    List<string> currentMonth = monthsList.FindAll(months => months == month[indexMonth]);
+                    List<string> currentMonth = monthsList.FindAll(months => { 
+                        return months == month[indexMonth] + year;
+                    });
                     int colSpan = currentMonth.Count();
                     ws.Cell(3, posMonth).Value = month[indexMonth];
                     int positionColSpan = posMonth+ colSpan;
@@ -98,9 +100,10 @@ namespace DLLCreateScheduleExcel
 
                 if(year != indexYearPrevious)
                 {
-                    //int positionColSpan = posYear + colSpanYear;
-                    //ws.Cell(1, posYear, 1, positionColSpan);
+                    int positionColSpan = posYear + colSpanYear;
+                    ws.Cell(1, posYear).Value = indexYearPrevious;
                 }
+                colSpanYear++;
 
                 ws.Cell(4, count).Value = d;           
                 count++;

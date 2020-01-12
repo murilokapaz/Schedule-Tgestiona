@@ -56,26 +56,36 @@ namespace DLLCreateScheduleExcel
             ws.Cell("G4").Value = "Realizado";
 
             //Report Grid Body 
-
+            int countIndex = 0;
             int linesLength = gridObject[0].Linhas.Count()+5;
             for(int i=5; i< linesLength; i+=2)
             {
+                var backgroundColor= XLColor.PowderBlue;
+                if (countIndex  % 2 == 1) backgroundColor = XLColor.White;
+                else backgroundColor = XLColor.PowderBlue;
+
                 //insert data into table
 
-                /*item*/       ws.Cell($"A{i}").Value = gridObject[0].Linhas[i-5].Tr[0].Td[0].Valor;                               
-                             
+                /*item*/
+                ws.Cell($"A{i}").Value = gridObject[0].Linhas[i-5].Tr[0].Td[0].Valor;
+                               ws.Range(i, 1, (i+1), 1).Column(1).Merge().Style.Fill.BackgroundColor = backgroundColor;
                 /*Atividade*/  ws.Cell($"B{i}").Value = gridObject[0].Linhas[i-5].Tr[1].Td[0].Valor;
-                               
+                               ws.Range(i, 2, (i + 1), 2).Column(1).Merge().Style.Fill.BackgroundColor = backgroundColor; ;                            
                 /*Responsavel*/ws.Cell($"C{i}").Value = gridObject[0].Linhas[i-5].Tr[2].Td[0].Valor;
-                        
+                               ws.Range(i, 3, (i + 1), 3).Column(1).Merge().Style.Fill.BackgroundColor = backgroundColor; ;
                 /*DataInicio*/ ws.Cell($"D{i}").Value = gridObject[0].Linhas[i-5].Tr[3].Td[0].Valor;
-                 
+                               ws.Range(i, 4, (i + 1), 4).Column(1).Merge().Style.Fill.BackgroundColor = backgroundColor; ;
                 /*DataFim*/    ws.Cell($"E{i}").Value = gridObject[0].Linhas[i-5].Tr[4].Td[0].Valor;
-               
+                               ws.Range(i, 5, (i + 1), 5).Column(1).Merge().Style.Fill.BackgroundColor = backgroundColor; ;
                 /*D.Uteis*/    ws.Cell($"F{i}").Value = gridObject[0].Linhas[i-5].Tr[5].Td[0].Valor;
-                           
+                               ws.Range(i, 6, (i + 1), 6).Column(1).Merge().Style.Fill.BackgroundColor = backgroundColor; ;
                 /*Realizado*/  ws.Cell($"G{i}").Value = gridObject[0].Linhas[i-5].Tr[6].Td[0].Valor;
-                           
+                               ws.Range(i, 7, (i + 1), 7).Column(1).Merge().Style.Fill.BackgroundColor = backgroundColor; ;
+
+                ws.Row(i).Height = 25;
+                ws.Row(i+1).Height = 10;
+                countIndex++;
+
             }
 
             //Report Timeline Body 
@@ -141,9 +151,23 @@ namespace DLLCreateScheduleExcel
 
             //Filters and Create table
             var range = ws.Range("A4:G"+(linesLength-1));
-            range.CreateTable();
-             
+            range.Style.Border.OutsideBorder = XLBorderStyleValues.Thin;
+            range.Style.Border.RightBorder = XLBorderStyleValues.Thin;
+            range.Style.Border.LeftBorder = XLBorderStyleValues.Thin;
+            range.Style.Border.OutsideBorderColor = XLColor.DimGray;
+            range.Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Left;
+            range.Style.Alignment.Vertical = XLAlignmentVerticalValues.Center;
+            // range.CreateTable();
+            ws.Range("A4:G4").Style.Fill.BackgroundColor = XLColor.AliceBlue;
+
             //Fix the column size with column content 
+            var item = ws.ColumnsUsed();
+
+            foreach (var i in item)
+            {
+                i.AdjustToContents();
+            }
+
             ws.Columns("1-"+count).AdjustToContents();
             ws.SheetView.FreezeColumns(7);
             

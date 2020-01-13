@@ -13,6 +13,12 @@ namespace DLLCreateScheduleExcel.Entities
 
         [JsonProperty("linhas")]
         public Linha[] Linhas { get; set; }
+
+        [JsonProperty("dataInicio")]
+        public string DataInicio { get; set; }
+
+        [JsonProperty("dataFim")]
+        public string DataFim { get; set; }
     }
 
     public partial class Welcome

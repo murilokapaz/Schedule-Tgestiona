@@ -5,7 +5,6 @@ using ClosedXML.Excel;
 using DLLCreateScheduleExcel.Data;
 using DLLCreateScheduleExcel.Entities;
 using DLLCreateScheduleExcel.Services;
-using Newtonsoft.Json;
 
 namespace DLLCreateScheduleExcel
 {
@@ -19,31 +18,24 @@ namespace DLLCreateScheduleExcel
             var dataBase = new ConnectionDataBase();
             dataBase.Connect();
             string json = dataBase.Query("select resultado from GRID_DLL where id_versao = 10565;");
-
-
-
-            //var jsonString = "[{\"nomeTabela\":\"cronograma\",\"colunas\":[{\"id\":0,\"valor\":\"item\",\"elemento\":\"input\",\"type\":\"number\"},{\"id\":1,\"valor\":\"Atividade\",\"elemento\":\"input\",\"type\":\"text\"},{\"id\":2,\"valor\":\"Responsavel\",\"elemento\":\"input\",\"type\":\"text\"},{\"id\":3,\"valor\":\"Início\",\"elemento\":\"input\",\"type\":\"date\"},{\"id\":4,\"valor\":\"Fim\",\"elemento\":\"input\",\"type\":\"date\"},{\"id\":5,\"valor\":\"D. Utéis\",\"elemento\":\"input\",\"type\":\"number\"},{\"id\":6,\"valor\":\"Real.\",\"elemento\":\"input\",\"type\":\"number\"},{\"id\":7,\"valor\":\"Ações\"}],\"linhas\":[{\"tr\":[{\"td\":[{\"id\":0,\"valor\":\"2\"}]},{\"td\":[{\"id\":1,\"valor\":\"Mesa de Apresentação Baseline \"}]},{\"td\":[{\"id\":2,\"valor\":\"Compras\"}]},{\"td\":[{\"id\":3,\"valor\":\"\"}]},{\"td\":[{\"id\":4,\"valor\":\"\"}]},{\"td\":[{\"id\":5,\"valor\":\"\"}]},{\"td\":[{\"id\":6,\"valor\":\"\"}]},{\"td\":[{\"id\":7,\"valor\":\"\"}]}]},{\"tr\":[{\"td\":[{\"id\":0,\"valor\":\"3\"}]},{\"td\":[{\"id\":1,\"valor\":\"Publicação conforme 155 anatel\"}]},{\"td\":[{\"id\":2,\"valor\":\"Compras\"}]},{\"td\":[{\"id\":3,\"valor\":\"\"}]},{\"td\":[{\"id\":4,\"valor\":\"\"}]},{\"td\":[{\"id\":5,\"valor\":\"\"}]},{\"td\":[{\"id\":6,\"valor\":\"\"}]},{\"td\":[{\"id\":7,\"valor\":\"\"}]}]},{\"tr\":[{\"td\":[{\"id\":0,\"valor\":\"4\"}]},{\"td\":[{\"id\":1,\"valor\":\"Envio das Condições de Participação\"}]},{\"td\":[{\"id\":2,\"valor\":\"Compras\"}]},{\"td\":[{\"id\":3,\"valor\":\"\"}]},{\"td\":[{\"id\":4,\"valor\":\"\"}]},{\"td\":[{\"id\":5,\"valor\":\"\"}]},{\"td\":[{\"id\":6,\"valor\":\"\"}]},{\"td\":[{\"id\":7,\"valor\":\"\"}]}]},{\"tr\":[{\"td\":[{\"id\":0,\"valor\":\"5\"}]},{\"td\":[{\"id\":1,\"valor\":\"Entrega dos documentos para Cadastro\"}]},{\"td\":[{\"id\":2,\"valor\":\"Proponente\"}]},{\"td\":[{\"id\":3,\"valor\":\"\"}]},{\"td\":[{\"id\":4,\"valor\":\"\"}]},{\"td\":[{\"id\":5,\"valor\":\"\"}]},{\"td\":[{\"id\":6,\"valor\":\"\"}]},{\"td\":[{\"id\":7,\"valor\":\"\"}]}]},{\"tr\":[{\"td\":[{\"id\":0,\"valor\":\"6\"}]},{\"td\":[{\"id\":1,\"valor\":\"Análise e Comunicação da pré-qualificação\"}]},{\"td\":[{\"id\":2,\"valor\":\"Juridico / Risco / Gestor\"}]},{\"td\":[{\"id\":3,\"valor\":\"\"}]},{\"td\":[{\"id\":4,\"valor\":\"\"}]},{\"td\":[{\"id\":5,\"valor\":\"\"}]},{\"td\":[{\"id\":6,\"valor\":\"\"}]},{\"td\":[{\"id\":7,\"valor\":\"\"}]}]},{\"tr\":[{\"td\":[{\"id\":0,\"valor\":\"7\"}]},{\"td\":[{\"id\":1,\"valor\":\"Entrega documentação complementar para cadastro\"}]},{\"td\":[{\"id\":2,\"valor\":\"Proponente\"}]},{\"td\":[{\"id\":3,\"valor\":\"\"}]},{\"td\":[{\"id\":4,\"valor\":\"\"}]},{\"td\":[{\"id\":5,\"valor\":\"\"}]},{\"td\":[{\"id\":6,\"valor\":\"\"}]},{\"td\":[{\"id\":7,\"valor\":\"\"}]}]},{\"tr\":[{\"td\":[{\"id\":0,\"valor\":\"8\"}]},{\"td\":[{\"id\":1,\"valor\":\"Analise da Documentação Complementar e definição da participação das Pretentendes\"}]},{\"td\":[{\"id\":2,\"valor\":\"Juridico / Risco / Gestor\"}]},{\"td\":[{\"id\":3,\"valor\":\"\"}]},{\"td\":[{\"id\":4,\"valor\":\"\"}]},{\"td\":[{\"id\":5,\"valor\":\"\"}]},{\"td\":[{\"id\":6,\"valor\":\"\"}]},{\"td\":[{\"id\":7,\"valor\":\"\"}]}]},{\"tr\":[{\"td\":[{\"id\":0,\"valor\":\"9\"}]},{\"td\":[{\"id\":1,\"valor\":\"Definição das Empresas Participantes\"}]},{\"td\":[{\"id\":2,\"valor\":\"Alta Direção Telefonica\"}]},{\"td\":[{\"id\":3,\"valor\":\"\"}]},{\"td\":[{\"id\":4,\"valor\":\"\"}]},{\"td\":[{\"id\":5,\"valor\":\"\"}]},{\"td\":[{\"id\":6,\"valor\":\"\"}]},{\"td\":[{\"id\":7,\"valor\":\"\"}]}]},{\"tr\":[{\"td\":[{\"id\":0,\"valor\":\"10\"}]},{\"td\":[{\"id\":1,\"valor\":\"Envio e recebimento do termo de Confidencialidade\"}]},{\"td\":[{\"id\":2,\"valor\":\"Compras\"}]},{\"td\":[{\"id\":3,\"valor\":\"\"}]},{\"td\":[{\"id\":4,\"valor\":\"\"}]},{\"td\":[{\"id\":5,\"valor\":\"\"}]},{\"td\":[{\"id\":6,\"valor\":\"\"}]},{\"td\":[{\"id\":7,\"valor\":\"\"}]}]},{\"tr\":[{\"td\":[{\"id\":0,\"valor\":\"11\"}]},{\"td\":[{\"id\":1,\"valor\":\"Envio da Solicitação de Propostas (RFP)\"}]},{\"td\":[{\"id\":2,\"valor\":\"Compras\"}]},{\"td\":[{\"id\":3,\"valor\":\"\"}]},{\"td\":[{\"id\":4,\"valor\":\"\"}]},{\"td\":[{\"id\":5,\"valor\":\"\"}]},{\"td\":[{\"id\":6,\"valor\":\"\"}]},{\"td\":[{\"id\":7,\"valor\":\"\"}]}]},{\"tr\":[{\"td\":[{\"id\":0,\"valor\":\"12\"}]},{\"td\":[{\"id\":1,\"valor\":\"Elaboração da Proposta\"}]},{\"td\":[{\"id\":2,\"valor\":\"Proponente\"}]},{\"td\":[{\"id\":3,\"valor\":\"\"}]},{\"td\":[{\"id\":4,\"valor\":\"\"}]},{\"td\":[{\"id\":5,\"valor\":\"\"}]},{\"td\":[{\"id\":6,\"valor\":\"\"}]},{\"td\":[{\"id\":7,\"valor\":\"\"}]}]},{\"tr\":[{\"td\":[{\"id\":0,\"valor\":\"13\"}]},{\"td\":[{\"id\":1,\"valor\":\"Recebimento das Propostas\"}]},{\"td\":[{\"id\":2,\"valor\":\"Compras Proponente\"}]},{\"td\":[{\"id\":3,\"valor\":\"\"}]},{\"td\":[{\"id\":4,\"valor\":\"\"}]},{\"td\":[{\"id\":5,\"valor\":\"\"}]},{\"td\":[{\"id\":6,\"valor\":\"\"}]},{\"td\":[{\"id\":7,\"valor\":\"\"}]}]},{\"tr\":[{\"td\":[{\"id\":0,\"valor\":\"14\"}]},{\"td\":[{\"id\":1,\"valor\":\"Análise / Alinhamento / RV / Emissão de Laudo/Ditame\"}]},{\"td\":[{\"id\":2,\"valor\":\"Compras / Gestor\"}]},{\"td\":[{\"id\":3,\"valor\":\"\"}]},{\"td\":[{\"id\":4,\"valor\":\"\"}]},{\"td\":[{\"id\":5,\"valor\":\"\"}]},{\"td\":[{\"id\":6,\"valor\":\"\"}]},{\"td\":[{\"id\":7,\"valor\":\"\"}]}]},{\"tr\":[{\"td\":[{\"id\":0,\"valor\":\"15\"}]},{\"td\":[{\"id\":1,\"valor\":\"Mesa preparatória\"}]},{\"td\":[{\"id\":2,\"valor\":\"Compras\"}]},{\"td\":[{\"id\":3,\"valor\":\"\"}]},{\"td\":[{\"id\":4,\"valor\":\"\"}]},{\"td\":[{\"id\":5,\"valor\":\"\"}]},{\"td\":[{\"id\":6,\"valor\":\"\"}]},{\"td\":[{\"id\":7,\"valor\":\"\"}]}]},{\"tr\":[{\"td\":[{\"id\":0,\"valor\":\"16\"}]},{\"td\":[{\"id\":1,\"valor\":\"Treinamento / Vista prévia / realização da Subasta\"}]},{\"td\":[{\"id\":2,\"valor\":\"Compras\"}]},{\"td\":[{\"id\":3,\"valor\":\"\"}]},{\"td\":[{\"id\":4,\"valor\":\"\"}]},{\"td\":[{\"id\":5,\"valor\":\"\"}]},{\"td\":[{\"id\":6,\"valor\":\"\"}]},{\"td\":[{\"id\":7,\"valor\":\"\"}]}]},{\"tr\":[{\"td\":[{\"id\":0,\"valor\":\"17\"}]},{\"td\":[{\"id\":1,\"valor\":\"Mesa Adjudicação\"}]},{\"td\":[{\"id\":2,\"valor\":\"Compras\"}]},{\"td\":[{\"id\":3,\"valor\":\"\"}]},{\"td\":[{\"id\":4,\"valor\":\"\"}]},{\"td\":[{\"id\":5,\"valor\":\"\"}]},{\"td\":[{\"id\":6,\"valor\":\"\"}]},{\"td\":[{\"id\":7,\"valor\":\"\"}]}]},{\"tr\":[{\"td\":[{\"id\":0,\"valor\":\"18\"}]},{\"td\":[{\"id\":1,\"valor\":\"Comunicação de Adjudicação\"}]},{\"td\":[{\"id\":2,\"valor\":\"Compras/Gestor\"}]},{\"td\":[{\"id\":3,\"valor\":\"\"}]},{\"td\":[{\"id\":4,\"valor\":\"\"}]},{\"td\":[{\"id\":5,\"valor\":\"\"}]},{\"td\":[{\"id\":6,\"valor\":\"\"}]},{\"td\":[{\"id\":7,\"valor\":\"\"}]}]},{\"tr\":[{\"td\":[{\"id\":0,\"valor\":\"19\"}]},{\"td\":[{\"id\":1,\"valor\":\"Periodo de transição operacional\"}]},{\"td\":[{\"id\":2,\"valor\":\"Contratada/Gestor\"}]},{\"td\":[{\"id\":3,\"valor\":\"\"}]},{\"td\":[{\"id\":4,\"valor\":\"\"}]},{\"td\":[{\"id\":5,\"valor\":\"\"}]},{\"td\":[{\"id\":6,\"valor\":\"\"}]},{\"td\":[{\"id\":7,\"valor\":\"\"}]}]}]}]";
             
             //Get the Object Array
             var gridObject = Welcome.FromJson(json.ToString());
-
-
             
             Console.WriteLine("Creating excel file...");
 
+            
 
             var interval = new IntervalDates(DateTime.Parse(gridObject[0].DataInicio), DateTime.Parse(gridObject[0].DataFim));
             var intervalDates = new TimelineRange();
             List<string> daysList = intervalDates.TimelineDaysList(interval);
-
-
             List<string> monthsList = intervalDates.TimeLineMonthsList(interval);
            
             
             var db = new ConnectionDataBase();
             var wb = new XLWorkbook();
             var ws = wb.Worksheets.Add("Cronograma");
-
+            Console.WriteLine(ws.GetType());
             //Report Title
             ws.Cell("A1").Value = "Cronograma";
             ws.Cell("A1").Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
@@ -71,28 +63,36 @@ namespace DLLCreateScheduleExcel
                 if (countIndex  % 2 == 1) backgroundColor = XLColor.White;
                 else backgroundColor = XLColor.FromHtml("#dde4ff");
 
-                //insert data into table
 
+
+                //insert data into table
+                var startDate = gridObject[0].Linhas[i - 5].Tr[3].Td[0].Valor;
+                var endDate = gridObject[0].Linhas[i - 5].Tr[4].Td[0].Valor;
+                var accomplished = gridObject[0].Linhas[i - 5].Tr[6].Td[0].Valor;
                 /*item*/
                 ws.Cell($"A{i}").Value = gridObject[0].Linhas[i-5].Tr[0].Td[0].Valor;
                                ws.Range(i, 1, (i+1), 1).Column(1).Merge().Style.Fill.BackgroundColor = backgroundColor;
                 /*Atividade*/  ws.Cell($"B{i}").Value = gridObject[0].Linhas[i-5].Tr[1].Td[0].Valor;
-                               ws.Range(i, 2, (i + 1), 2).Column(1).Merge().Style.Fill.BackgroundColor = backgroundColor; ;                            
+                               ws.Range(i, 2, (i + 1), 2).Column(1).Merge().Style.Fill.BackgroundColor = backgroundColor;                            
                 /*Responsavel*/ws.Cell($"C{i}").Value = gridObject[0].Linhas[i-5].Tr[2].Td[0].Valor;
-                               ws.Range(i, 3, (i + 1), 3).Column(1).Merge().Style.Fill.BackgroundColor = backgroundColor; ;
-                /*DataInicio*/ ws.Cell($"D{i}").Value = gridObject[0].Linhas[i-5].Tr[3].Td[0].Valor;
-                               ws.Range(i, 4, (i + 1), 4).Column(1).Merge().Style.Fill.BackgroundColor = backgroundColor; ;
-                /*DataFim*/    ws.Cell($"E{i}").Value = gridObject[0].Linhas[i-5].Tr[4].Td[0].Valor;
-                               ws.Range(i, 5, (i + 1), 5).Column(1).Merge().Style.Fill.BackgroundColor = backgroundColor; ;
-                /*D.Uteis*/    ws.Cell($"F{i}").Value = gridObject[0].Linhas[i-5].Tr[5].Td[0].Valor;
-                               ws.Range(i, 6, (i + 1), 6).Column(1).Merge().Style.Fill.BackgroundColor = backgroundColor; ;
-                /*Realizado*/  ws.Cell($"G{i}").Value = gridObject[0].Linhas[i-5].Tr[6].Td[0].Valor;
-                               ws.Range(i, 7, (i + 1), 7).Column(1).Merge().Style.Fill.BackgroundColor = backgroundColor; ;
+                               ws.Range(i, 3, (i + 1), 3).Column(1).Merge().Style.Fill.BackgroundColor = backgroundColor; 
+                /*DataInicio*/ ws.Cell($"D{i}").Value = startDate;
+                               ws.Range(i, 4, (i + 1), 4).Column(1).Merge().Style.Fill.BackgroundColor = backgroundColor; 
+                /*DataFim*/    ws.Cell($"E{i}").Value = endDate;
+                               ws.Range(i, 5, (i + 1), 5).Column(1).Merge().Style.Fill.BackgroundColor = backgroundColor; 
+                /*Realizado*/  ws.Cell($"G{i}").Value = accomplished;
+                               ws.Range(i, 7, (i + 1), 7).Column(1).Merge().Style.Fill.BackgroundColor = backgroundColor; 
 
                 ws.Row(i).Height = 25;
                 ws.Row(i+1).Height = 10;
                 countIndex++;
+                                                                                  //worksheet, timeline days list, expected stard, expected end, timeline row, background color 
+                /*color Timeline expected*/    int workDays = intervalDates.colorTimeLine(ws, daysList, startDate, endDate, i, "#8ebbff");
+                /*color timeline accomplished*/intervalDates.colorTimeLine(ws, daysList, startDate, accomplished, (i+1), "#7eff77");
 
+                /*D.Uteis*/
+                ws.Cell($"F{i}").Value = workDays;
+                ws.Range(i, 6, (i + 1), 6).Column(1).Merge().Style.Fill.BackgroundColor = backgroundColor;
             }
 
             //Report Timeline Body 
@@ -159,6 +159,8 @@ namespace DLLCreateScheduleExcel
 
                 count++;
             }
+
+
             //Set merge the last year e put background it
             if (colSpanYear != 1) ws.Range(1, posYear+1, 1, colSpanYear+6).Merge().Style.Fill.BackgroundColor = XLColor.FromHtml("#e8ecff");
             else ws.Cell(1, posYear+1).Style.Fill.BackgroundColor = XLColor.FromHtml("#e8ecff");
@@ -189,7 +191,7 @@ namespace DLLCreateScheduleExcel
             ws.Range(1, 1, linesLength, count - 1).Style.Border.OutsideBorder = XLBorderStyleValues.Medium;// set the table OutsideBorder 
             ws.Columns("A, D:G").Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;//leaves selected cells centered
             ws.Column("B").Style.Alignment.WrapText = true;//Set wrap at  Column "Nome da Atividade"
-            ws.Range(4, 8, 4, (count - 1)).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
+            ws.Range(4, 8, 4, (count - 1)).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center; //set cells of the week centered
 
             ws.SheetView.FreezeColumns(7);
             

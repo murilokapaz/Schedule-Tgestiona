@@ -63,6 +63,7 @@
     <Compile Include="Services\Converter.cs" />
     <Compile Include="Entities\IntervalDates.cs" />
     <Compile Include="Entities\Linha.cs" />
+    <Compile Include="Services\EnumsServices\TimelineType.cs" />
     <Compile Include="Services\Serialize.cs" />
     <Compile Include="Entities\Td.cs" />
     <Compile Include="Entities\Tr.cs" />

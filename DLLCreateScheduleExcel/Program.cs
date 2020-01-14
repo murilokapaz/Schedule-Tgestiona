@@ -195,8 +195,10 @@ namespace DLLCreateScheduleExcel
             var item = ws.ColumnsUsed();
 
             //Other table adjustments
-            ws.Columns("4-7").Width = 11; //Define size Dates Columns
-            ws.Columns("8-" + count).Width = 7; //Define size Dates Columns
+            ws.Columns("4-7").Width = 11; //Define size Dates Grid Columns 
+            ws.Columns("8-" + count).Width = 7; //Define size Dates Schedule Columns
+            ws.Rows(5,linesLength-1).Style.Border.BottomBorder = XLBorderStyleValues.Thin;
+            ws.Rows(5, linesLength - 1).Style.Border.BottomBorderColor = XLColor.FromHtml("#d3d3d3");
             ws.Column(2).Width = 40; // Define size Column "Nome da Atividade"
             ws.Column(3).Width = 35; // Define size Column "Responsavel"
             ws.Column(1).Width = 5;//Define size Column "Item"

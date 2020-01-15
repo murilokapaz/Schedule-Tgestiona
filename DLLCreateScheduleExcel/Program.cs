@@ -9,31 +9,26 @@ using DLLCreateScheduleExcel.Services;
 
 namespace DLLCreateScheduleExcel
 {
-    class Program
+    internal class Program
     {
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
-
-
             //var documentId = base.RetornaContexto().Documento.DocumentoId;
 
             //Connection with DataBase
             var dataBase = new ConnectionDataBase();
             dataBase.Connect();
-            string json = dataBase.Query("select resultado from GRID_DLL where id_versao = 10565;");
+            string json = dataBase.Query("select resultado from GRID_DLL where id_versao = 10565  ;");
 
             //Get the Object Array
             var gridObject = Welcome.FromJson(json.ToString());
 
             Console.WriteLine("Creating excel file...");
 
-
-
             var interval = new IntervalDates(DateTime.Parse(gridObject[0].DataInicio), DateTime.Parse(gridObject[0].DataFim));
             var intervalDates = new TimelineRange();
             List<string> daysList = intervalDates.TimelineDaysList(interval);
             List<string> monthsList = intervalDates.TimeLineMonthsList(interval);
-
 
             var db = new ConnectionDataBase();
             var wb = new XLWorkbook();
@@ -47,7 +42,6 @@ namespace DLLCreateScheduleExcel
 
             ws.Range("A1:G3").Merge();
 
-
             //Report Header
             ws.Cell("A4").Value = "Item";
             ws.Cell("B4").Value = "Nome da Atividade";
@@ -57,7 +51,7 @@ namespace DLLCreateScheduleExcel
             ws.Cell("F4").Value = "Dias Úteis";
             ws.Cell("G4").Value = "Realizado";
 
-            //Report Grid Body 
+            //Report Grid Body
             int countIndex = 0;
             int linesLength = gridObject[0].Linhas.Count() + 5;
             for (int i = 5; i < linesLength; i += 2)
@@ -65,8 +59,6 @@ namespace DLLCreateScheduleExcel
                 var backgroundColor = XLColor.PowderBlue;
                 if (countIndex % 2 == 1) backgroundColor = XLColor.White;
                 else backgroundColor = XLColor.FromHtml("#dde4ff");
-
-
 
                 //insert data into table
                 var startDate = gridObject[0].Linhas[i - 5].Tr[3].Td[0].Valor;
@@ -94,7 +86,7 @@ namespace DLLCreateScheduleExcel
                 ws.Row(i).Height = 25;
                 ws.Row(i + 1).Height = 10;
                 countIndex++;
-                //worksheet, timeline days list, expected stard, expected end, timeline row, background color 
+                //worksheet, timeline days list, expected stard, expected end, timeline row, background color
                 /*color Timeline expected*/
                 int workDays = intervalDates.colorTimeLine(ws, daysList, startDate, endDate, i, "#8ebbff");
                 /*color timeline accomplished*/
@@ -105,7 +97,7 @@ namespace DLLCreateScheduleExcel
                 ws.Range(i, 6, (i + 1), 6).Column(1).Merge().Style.Fill.BackgroundColor = backgroundColor;
             }
 
-            //Report Timeline Body 
+            //Report Timeline Body
             int count = 8;
             int posMonth = 8;
             int indexMonthPrevious = 0;
@@ -120,7 +112,6 @@ namespace DLLCreateScheduleExcel
                 var date = DateTime.Parse(d);
                 int indexMonth = (int)date.Month;
                 int year = (int)date.Year;
-
 
                 if (indexMonth != indexMonthPrevious)
                 {
@@ -150,7 +141,6 @@ namespace DLLCreateScheduleExcel
                     ws.Cell(1, posYearPrevious).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Left;
                     ws.Cell(1, posYear).Value = indexYearPrevious;
                     posYear--;
-
                 }
                 colSpanYear++;
                 string shortDay = d.Substring(0, 5);
@@ -163,7 +153,7 @@ namespace DLLCreateScheduleExcel
                 CultureInfo brasil = new CultureInfo("pt-BR");
                 string week = brasil.DateTimeFormat.DayNames[(int)dayWeek];
 
-                ws.Cell(4, count).Value = week.ToString().ToUpper().Substring(0,1);
+                ws.Cell(4, count).Value = week.ToString().ToUpper().Substring(0, 1);
 
                 if (dayWeek.ToString() == "Saturday" || dayWeek.ToString() == "Sunday")
                 {
@@ -173,12 +163,10 @@ namespace DLLCreateScheduleExcel
                 count++;
             }
 
-
             //Set merge the last year e put background it
             if (colSpanYear != 1) ws.Range(1, posYear + 1, 1, colSpanYear + 6).Merge().Style.Fill.BackgroundColor = XLColor.FromHtml("#e8ecff");
             else ws.Cell(1, posYear + 1).Style.Fill.BackgroundColor = XLColor.FromHtml("#e8ecff");
             ws.Cell(1, posYear + 1).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Left;
-
 
             //Filters and Create table-------------------------------------------------------------
             var range = ws.Range("A4:G" + (linesLength - 1));
@@ -191,20 +179,20 @@ namespace DLLCreateScheduleExcel
             // range.CreateTable();
             ws.Range("A4:G4").Style.Fill.BackgroundColor = XLColor.AliceBlue;
 
-            //Fix the column size with column content 
+            //Fix the column size with column content
             var item = ws.ColumnsUsed();
 
             //Other table adjustments
-            ws.Columns("4-7").Width = 11; //Define size Dates Grid Columns 
+            ws.Columns("4-7").Width = 11; //Define size Dates Grid Columns
             ws.Columns("8-" + count).Width = 7; //Define size Dates Schedule Columns
-            ws.Rows(5,linesLength-1).Style.Border.BottomBorder = XLBorderStyleValues.Thin;
+            ws.Rows(5, linesLength - 1).Style.Border.BottomBorder = XLBorderStyleValues.Thin;
             ws.Rows(5, linesLength - 1).Style.Border.BottomBorderColor = XLColor.FromHtml("#d3d3d3");
             ws.Column(2).Width = 40; // Define size Column "Nome da Atividade"
             ws.Column(3).Width = 35; // Define size Column "Responsavel"
             ws.Column(1).Width = 5;//Define size Column "Item"
             ws.Row(4).Cells("1:" + (count - 1)).Style.Border.BottomBorder = XLBorderStyleValues.Thin; // set the border of header bottom
             ws.Row(4).Cells("1:" + (count - 1)).Style.Border.BottomBorderColor = XLColor.FromHtml("#bcbcbc"); // set header border color
-            ws.Range(1, 1, linesLength, count - 1).Style.Border.OutsideBorder = XLBorderStyleValues.Medium;// set the table OutsideBorder 
+            ws.Range(1, 1, linesLength, count - 1).Style.Border.OutsideBorder = XLBorderStyleValues.Medium;// set the table OutsideBorder
             ws.Columns("A, D:G").Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;//leaves selected cells centered
             ws.Column("B").Style.Alignment.WrapText = true;//Set wrap at  Column "Nome da Atividade"
             ws.Range(4, 8, 4, (count - 1)).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center; //set cells of the week centered
@@ -214,8 +202,7 @@ namespace DLLCreateScheduleExcel
 
             //Salve file
 
-
-            wb.SaveAs(@"C:\Users\murilo.paz.REDESPC\source\repos\ExcelSchedule\test2.xlsx");
+            wb.SaveAs(@"C:\Users\User\Desktop\ConsultaSqlServer\test2.xlsx");
 
             //Release objects
 
@@ -223,7 +210,6 @@ namespace DLLCreateScheduleExcel
 
             Console.WriteLine("Finish");
             Console.ReadKey();
-
         }
     }
 }

@@ -5,6 +5,8 @@ VisualStudioVersion = 16.0.29509.3
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DLLCreateScheduleExcel", "DLLCreateScheduleExcel\DLLCreateScheduleExcel.csproj", "{95AAE5CC-DDC8-4ED2-BE2C-059E0D8168E1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Testes", "Testes\Testes.csproj", "{E78974B2-1C46-4658-B20E-20E1D6F53355}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{95AAE5CC-DDC8-4ED2-BE2C-059E0D8168E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{95AAE5CC-DDC8-4ED2-BE2C-059E0D8168E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{95AAE5CC-DDC8-4ED2-BE2C-059E0D8168E1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E78974B2-1C46-4658-B20E-20E1D6F53355}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E78974B2-1C46-4658-B20E-20E1D6F53355}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E78974B2-1C46-4658-B20E-20E1D6F53355}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E78974B2-1C46-4658-B20E-20E1D6F53355}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

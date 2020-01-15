@@ -1,7 +1,6 @@
 ﻿using DLLCreateScheduleExcel.Services;
 using Newtonsoft.Json;
 
-
 namespace DLLCreateScheduleExcel.Entities
 {
     public partial class Coluna
@@ -19,5 +18,4 @@ namespace DLLCreateScheduleExcel.Entities
         [JsonProperty("type")]
         public string Type { get; set; }
     }
-
 }

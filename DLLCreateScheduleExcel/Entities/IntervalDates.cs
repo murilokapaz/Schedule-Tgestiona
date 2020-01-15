@@ -2,7 +2,7 @@
 
 namespace DLLCreateScheduleExcel.Entities
 {
-    class IntervalDates
+    internal class IntervalDates
     {
         public DateTime StartSchedule { get; set; }
         public DateTime EndSchedule { get; set; }
@@ -15,7 +15,6 @@ namespace DLLCreateScheduleExcel.Entities
 
         public IntervalDates()
         {
-
         }
     }
 }

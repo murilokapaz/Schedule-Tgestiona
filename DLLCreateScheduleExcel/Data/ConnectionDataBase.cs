@@ -3,7 +3,7 @@ using System.Data.SqlClient;
 
 namespace DLLCreateScheduleExcel.Data
 {
-    class ConnectionDataBase
+    internal class ConnectionDataBase
     {
         private SqlConnection conn;
         private string strCnx;
@@ -24,7 +24,6 @@ namespace DLLCreateScheduleExcel.Data
 
             for (int i = 0; i < dr.FieldCount; i++)
             {
-
                 Console.WriteLine("{0} ", dr.GetName(i));
             }
             Console.WriteLine();

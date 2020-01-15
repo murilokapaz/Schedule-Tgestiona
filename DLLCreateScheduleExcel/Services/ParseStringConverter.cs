@@ -1,7 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System;
 
-
 namespace DLLCreateScheduleExcel.Services
 {
     internal class ParseStringConverter : JsonConverter

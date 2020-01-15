@@ -8,7 +8,6 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using System.Text;
 
 namespace DLLCreateScheduleExcel.ECM
 {
@@ -19,10 +18,12 @@ namespace DLLCreateScheduleExcel.ECM
 
 		public ECM()
 		{
+			Console.WriteLine("construtor vazio");
 		}
 
 		public ECM(object obj)
 		{
+			Console.WriteLine("construtor ");
 		}
 
 		#endregion Ctor
@@ -32,7 +33,10 @@ namespace DLLCreateScheduleExcel.ECM
 		[MetodoScript]
 		public void GerarXls()
 		{
-			var documentId = base.RetornaContexto().Documento.DocumentoId;
+			//var documentId = base.RetornaContexto().Documento.DocumentoId;
+			//	int documentId = base.contexto.Documento.DocumentoId;
+
+			int documentId = 10;
 
 			//Connection with DataBase
 			var dataBase = new ConnectionDataBase();
@@ -221,7 +225,7 @@ namespace DLLCreateScheduleExcel.ECM
 
 			//Salve file
 
-			wb.SaveAs(@"D:\PROJETOS\TGESTIONA\SITE\Arquivos\test2.xlsx");
+			wb.SaveAs(@"E:\Projetos\Tgestiona\EllosECM\ECM\Arquivos\test2.xlsx");
 
 			//Release objects
 
@@ -229,6 +233,12 @@ namespace DLLCreateScheduleExcel.ECM
 
 			Console.WriteLine("Finish");
 			Console.ReadKey();
+		}
+
+		[MetodoScript]
+		public void teste()
+		{
+			base.SetCampoValor(1, "teste");
 		}
 
 		#endregion Metodo
